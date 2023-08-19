@@ -7,7 +7,7 @@
  *    4. Benchmark driver.
  *    5. Test driver.
  */
-#include "p7_config.h"
+#include <p7_config.h>
 
 #include <stdlib.h>
 #include <string.h>
@@ -562,6 +562,7 @@ p7_tophits_GetMaxPositionLength(P7_TOPHITS *h)
 
   for (i = 0; i < h->N; i++) {
     if (h->unsrt[i].dcl[0].iali > 0) {
+<<<<<<< HEAD
       n = snprintf (buffer, 26, "%" PRId64 "", h->unsrt[i].dcl[0].iali);
       max = ESL_MAX(n, max);
       n = snprintf (buffer, 26, "%" PRId64 "", h->unsrt[i].dcl[0].jali);
@@ -1149,12 +1150,15 @@ p7_tophits_Threshold(P7_TOPHITS *th, P7_PIPELINE *pli)
   }
 
   /* Count the reported, included domains */
-  for (h = 0; h < th->N; h++)  
+  for (h = 0; h < th->N; h++) {
+    th->hit[h]->nreported = 0;
+    th->hit[h]->nincluded = 0;
     for (d = 0; d < th->hit[h]->ndom; d++)
     {
         if (th->hit[h]->dcl[d].is_reported) th->hit[h]->nreported++;
         if (th->hit[h]->dcl[d].is_included) th->hit[h]->nincluded++;
     }
+  }
 
   workaround_bug_h74(th);  /* blech. This function is defined above; see commentary and crossreferences there. */
 
@@ -2483,7 +2487,7 @@ p7_tophits_TabularTail(FILE *ofp, const char *progname, enum p7_pipemodes_e pipe
   
   If needed, we do have opportunity for optimization, however - especially in memory handling.
  */
-#include "p7_config.h"
+#include <p7_config.h>
 
 #include "easel.h"
 #include "esl_getopts.h"
@@ -2570,7 +2574,7 @@ main(int argc, char **argv)
   gcc -o tophits_utest -std=gnu99 -g -O2 -I. -L. -I../easel -L../easel -Dp7TOPHITS_TESTDRIVE p7_tophits.c -lhmmer -leasel -lm 
   ./tophits_test
 */
-#include "p7_config.h"
+#include <p7_config.h>
 
 #include "easel.h"
 #include "esl_getopts.h"

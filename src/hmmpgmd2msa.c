@@ -4,7 +4,7 @@
  *    1. The <esl_msa_hmmpgmd2msa> function
  *    2. Test driver
  */
-#include "p7_config.h"
+#include <p7_config.h>
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -135,6 +135,7 @@ hmmpgmd2msa(void *data, P7_HMM *hmm, ESL_SQ *qsq, int *incl, int incl_size, int 
     th->unsrt[i].desc = NULL;
     th->unsrt[i].dcl = NULL;
     th->unsrt[i].orfid = NULL;
+
 
     if(p7_hit_Deserialize((uint8_t *) p, &n, &(th->unsrt[i])) != eslOK){
       printf("Unable to deserialize hit %d\n", i);

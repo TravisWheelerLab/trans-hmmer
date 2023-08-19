@@ -1,6 +1,6 @@
 /* nhmmscan: search sequence(s) against a profile HMM database, using nhmmer pipeline
  */
-#include "p7_config.h"
+#include <p7_config.h>
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -106,7 +106,6 @@ static ESL_OPTIONS options[] = {
   { "--domZ",       eslARG_REAL,   FALSE, NULL, "x>0",   NULL,  NULL,  NULL,           "set # of significant seqs, for domain E-value calculation",      99 },
   { "--notrans",    eslARG_NONE,   FALSE, NULL, NULL,      NULL,  NULL,  NULL,          "don't show the translated DNA sequence in domain alignment",    99 }, /*for hmmscant */
   { "--vertcodon",  eslARG_NONE,   FALSE, NULL, NULL,      NULL,  NULL,  NULL,          "show the DNA vertically in domain alignment",                   99 }, /*for hmmscant */
-
 #ifdef HMMER_THREADS
   { "--cpu",        eslARG_INT, p7_NCPU,"HMMER_NCPU","n>=0",NULL,  NULL,  CPUOPTS,         "number of parallel CPU workers to use for multithreads",       12 },
 #endif
@@ -403,7 +402,7 @@ serial_master(ESL_GETOPTS *go, struct cfg_s *cfg)
   }
 
   infocnt = (ncpus == 0) ? 1 : ncpus;
-  ESL_ALLOC(info, sizeof(*info) * infocnt);
+  ESL_ALLOC(info, (ptrdiff_t) sizeof(*info) * infocnt);
 
   for (i = 0; i < infocnt; ++i)
   {
