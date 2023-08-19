@@ -21,6 +21,22 @@ hmmlogo_maxHeight (P7_BG *bg)
   return eslCONST_LOG2R * log(1.0/min_p);  //bits
 }
 
+/* heights are computed for hmm->M*abc->K floats*/
+int
+hmmlogo_Prob_all (P7_HMM *hmm, float **heights ) {
+
+  int    K     = hmm->abc->K;
+  int    M     = hmm->M;
+  int    i, j;
+
+  for (i = 1; i <= M; i++) {
+    // height of residues
+    for (j=0; j<K; j++) {
+      heights[i][j] = hmm->mat[i][j];
+    }
+  }
+  return eslOK;
+}
 
 /* assumes rel_ents is allocated with abc->K floats, and heights with hmm->M*abc->K floats*/
 int
@@ -156,6 +172,7 @@ hmmlogo_IndelValues (P7_HMM *hmm, float *insert_P, float *insert_expL, float *oc
 #define HMMLOGO_RELENT_ALL        1
 #define HMMLOGO_RELENT_ABOVEBG    2
 #define HMMLOGO_SCORE             3
+#define HMMLOGO_PROB              4
 
 
 static ESL_OPTIONS options[] = {
@@ -165,6 +182,7 @@ static ESL_OPTIONS options[] = {
   { "--height_relent_all",       eslARG_NONE,    NULL, NULL, NULL,    NULL,  NULL,  HMMLOGO_OPTS,     "total height = relative entropy ; all letters shown (default)",     1 },
   { "--height_relent_abovebg",   eslARG_NONE,    NULL, NULL, NULL,    NULL,  NULL,  HMMLOGO_OPTS,     "total height = relative entropy ; only letters >bg shown",    1 },
   { "--height_score",            eslARG_NONE,    NULL, NULL, NULL,    NULL,  NULL,  HMMLOGO_OPTS,     "total height = sums of (pos|neg) scores; residue height = score",            1 },
+  { "--height_prob",             eslARG_NONE,    NULL, NULL, NULL,    NULL,  NULL,  HMMLOGO_OPTS,     "total height = 1; residue height = emission probability",            1 },
   { "--no_indel",                eslARG_NONE,    NULL, NULL, NULL,    NULL,  NULL,  NULL,             "don't provide indel rate values",                                            1 },
 
   {  0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
@@ -221,6 +239,8 @@ main(int argc, char **argv)
     mode = HMMLOGO_RELENT_ABOVEBG;
   else if (esl_opt_IsOn(go, "--height_score"))
     mode = HMMLOGO_SCORE;
+  else if (esl_opt_IsOn(go, "--height_prob"))
+    mode = HMMLOGO_PROB;
   else
     mode = HMMLOGO_RELENT_ALL;  //default
 
@@ -251,6 +271,8 @@ main(int argc, char **argv)
   } else if (mode == HMMLOGO_RELENT_ABOVEBG) {
     printf ("max expected height = %.2f\n", hmmlogo_maxHeight(bg) );
     hmmlogo_RelativeEntropy_above_bg(hmm, bg, rel_ents, probs, heights);
+  } else if (mode == HMMLOGO_PROB) {
+    hmmlogo_Prob_all(hmm, heights );
   } else if (mode == HMMLOGO_SCORE) {
     hmmlogo_ScoreHeights(hmm, bg, heights );
   }
@@ -261,7 +283,7 @@ main(int argc, char **argv)
     for (j=0; j<abc->K; j++)
       printf("%6.3f ", heights[i][j] );
 
-    if (mode != HMMLOGO_SCORE)
+    if (mode != HMMLOGO_SCORE && mode != HMMLOGO_PROB)
       printf(" (%6.3f)", rel_ents[i]);
 
     printf("\n");
@@ -277,7 +299,7 @@ main(int argc, char **argv)
 
 
   /* indel values */
-  if (! esl_opt_IsOn(go, "--no_indel")) {
+  if (! esl_opt_IsOn(go, "--no_indel") && mode != HMMLOGO_PROB) {
 
     ESL_ALLOC(ins_P, (hmm->M+1) * sizeof(float));
     ESL_ALLOC(ins_expL, (hmm->M+1) * sizeof(float));
