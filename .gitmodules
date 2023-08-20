@@ -1,0 +1,4 @@
+[submodule "easel"]
+	path = easel
+	url = https://github.com/TravisWheelerLab/easel.git
+	branch = develop
