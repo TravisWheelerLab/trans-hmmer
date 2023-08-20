@@ -562,7 +562,6 @@ p7_tophits_GetMaxPositionLength(P7_TOPHITS *h)
 
   for (i = 0; i < h->N; i++) {
     if (h->unsrt[i].dcl[0].iali > 0) {
-<<<<<<< HEAD
       n = snprintf (buffer, 26, "%" PRId64 "", h->unsrt[i].dcl[0].iali);
       max = ESL_MAX(n, max);
       n = snprintf (buffer, 26, "%" PRId64 "", h->unsrt[i].dcl[0].jali);

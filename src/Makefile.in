@@ -47,58 +47,19 @@ MYINCDIRS = -I../${ESLDIR} \
 	    -I${srcdir} \
 	    -I../${SADIR} 
 
-PROGS = alimask\
-	hmmalign\
-	hmmbuild\
-	hmmconvert\
-	hmmemit\
-	hmmfetch\
-	hmmlogo\
-	hmmpgmd\
-	hmmpgmd_shard\
-	hmmpress\
-	hmmscan\
-	hmmsearch\
-	hmmsim\
-	hmmstat\
-	jackhmmer\
-	phmmer\
+PROGS = hmmbuild\
 	hmmsearcht\
-	nhmmer\
-	nhmmscan\
-	hmmscant\
-	makehmmerdb
+	hmmscant
 
 # "auxprogs" are built but not installed.
-AUXPROGS = \
-	hmmc2 \
-	hmmerfm-exactmatch
+AUXPROGS = 
 
 PROGOBJS =\
-	alimask.o\
-	hmmalign.o\
 	hmmbuild.o\
-	hmmconvert.o\
-	hmmemit.o\
-	hmmfetch.o\
-	hmmlogo.o\
-	hmmpgmd.o\
-	hmmpress.o\
-	hmmscan.o\
-	hmmsearch.o\
-	hmmsim.o\
-	hmmstat.o\
-	jackhmmer.o\
-	phmmer.o\
 	hmmsearcht.o\
-	nhmmer.o\
-	nhmmscan.o\
-	hmmscant.o\
-	makehmmerdb.o
+	hmmscant.o
 
-AUXPROGOBJS = \
-	hmmc2.o \
-	hmmerfm-exactmatch.o
+AUXPROGOBJS = 
 
 HDRS =  hmmer.h \
 	cachedb.h \
