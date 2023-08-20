@@ -1,5 +1,0 @@
-[submodule "easel"]
-	path = easel
-	url = git@github.com:TravisWheelerLab/easel.git
-	branch = develop
-
