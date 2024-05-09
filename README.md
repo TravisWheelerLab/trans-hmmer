@@ -1,9 +1,12 @@
-## Translated (protein-to-DNA) search with hmmsearcht a HMMER fork 
+## PILOT IMPLEMENTATION of Translated (protein-to-DNA) search in a HMMER fork
 
-*** Warning:  This is not the primary repository of HMMER. Please find the official repo at: https://github.com/EddyRivasLab/hmmer ***
+**IF YOU ARE LOOKING FOR OUR TRANSLATED SEARCH SOFTWARE, PLEASE VISIT THE BATH REPOSITORY: [https://github.com/TravisWheelerLab/BATH](https://github.com/TravisWheelerLab/BATH)**
 
-[![](https://travis-ci.org/EddyRivasLab/hmmer.svg?branch=develop)](https://travis-ci.org/EddyRivasLab/hmmer)
-![](http://img.shields.io/badge/license-BSD-brightgreen.svg)
+---------
+
+__DEPRECATED DESCRIPTION BELOW__
+
+**WARNING:  This is a fork of the [HMMER repository](https://github.com/EddyRivasLab/hmmer), and should not be treated as the original.**
 
 [HMMER](http://hmmer.org) searches biological sequence databases for
 homologous sequences, using either single sequences or multiple
@@ -27,7 +30,7 @@ These two new tools contribution (hmmsearcht) provides a few benefits; most impo
 ### to clone a copy of this fork of HMMER3 source from github:
 
 ```bash
-   % git clone https://github.com/TravisWheelerLab/hmmer 
+   % git clone https://github.com/TravisWheelerLab/trans-hmmer 
    % cd hmmer
    % git submodule init
    % git submodule update --remote
